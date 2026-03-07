@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Issues Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="./styles/stylesheet.css">
+</head>
+<body class="bg-[#F8FAFC] box-border h-full">
+    <header class="mx-h[78px] mb-[60px]">
+        <nav class="flex justify-between px-5 md:px-20 py-5 border-b border-b-[#E9E9E9]">
+            <div class="flex items-center justify-center gap-2">
+                <img class="h-[36px] w-[36px]" src="./assets/github-logo.png" alt="">
+                <h2 class="font-semibold text-[24px]">GitHub Issues Tracker</h2>
+            </div>
+            <fieldset class="fieldset relative flex">
+                <i class="fa-solid fa-magnifying-glass absolute z-10 top-[18px] left-[10px]" style="color: rgb(215, 205, 254);"></i>
+                <input id="search" type="text" class="input input-primary pl-7" placeholder="Search Issue"/>
+                <button class="btn btn-primary">+ New Issue</button>
+            </fieldset>
+        </nav>
+    </header>
+    <main class="p-5">
+        <section class="w-full max-w-[1110px] mx-auto mb-4 shadow-sm rounded-lg">
+            <div id="tab-items" class="flex items-start justify-start w-full gap-2 p-6 rounded-[8px] bg-white">
+                <button onclick="tabs_switched(this,'all')" class="btn btn-primary">All</button>
+                <button onclick="tabs_switched(this,'open')" class="btn">Open</button>
+                <button onclick="tabs_switched(this,'close')" class="btn">Closed</button>
+            </div>
+        </section>
+        <section class="shadow-lg w-full max-w-[1110px] mx-auto rounded-lg">
+            <section class="w-full p-6 bg-white flex justify-between overflow-hidden rounded-t-lg border-b border-b-[#E9E9E9]">  
+                <div class="flex justify-start items-center gap-2">
+                    <div class="p-2 bg-[#ECE4FF] rounded-full flex items-center justify-center"> 
+                        <img src="./assets/Aperture.png" alt="">
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <h1 class="font-semibold text-[20px] text-[#1F2937]">50 Issue</h1>
+                        <p class="text-[16px] text-[#64748B]">Track and manage your project issues</p>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center gap-4">
+                    <div class="flex gap-1 items-center">
+                        <i class="fa-solid fa-circle" style="color: #00a96e;"></i>
+                        <p>Open</p>
+                    </div>
+                    <div class="flex gap-1 items-center">
+                        <i class="fa-solid fa-circle" style="color: #a855f7;"></i>
+                        <p>Closed</p>
+                    </div>
+                </div>
+            </section>
+            <section id="card-container" class="bg-transparent w-full p-6 flex flex-wrap gap-[13px] items-center justify-start">
+                <div id="cards" class="flex flex-col items-start justify-start w-[255px] border-[#00A96E] border rounded-md border-t-[3px] bg-white shadow-md">
+                    <div class="p-4 space-y-3">
+                        <div class="flex justify-between items-center w-full">
+                            <img src="./assets/Open-Status.png" alt="">
+                            <div class="w-[80px] h-[24px] rounded-[100px] text-red-600 bg-[#FEECEC] items-center flex justify-center text-[12px]">
+                                High
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <h1 class="font-semibold text-[14px]">Fix navigation menu on mobile devices</h1>
+                            <p class="text-[12px] text-[#64748B]">The navigation menu doesn't collapse properly on mobile devices...</p>
+                            <div class="flex gap-1">
+                                <div class="w-fit px-2 h-[24px] rounded-[100px] text-red-600 bg-[#FEECEC] items-center flex justify-center text-[12px] border-1 border-[#FECACA]">
+                                    <div class="flex gap-1 items-center">
+                                        <i class="fa-solid fa-bug"></i>
+                                        <span>BUG</span>
+                                    </div>
+                                </div>
+                                <div class="w-fit h-[24px] px-3 rounded-[100px] text-red-600 bg-[#FFF8DB] items-center flex justify-center text-[12px] border-1 border-[#FDE68A]">
+                                    <div class="flex gap-1 items-center">
+                                        <i class="fa-solid fa-bug"></i>
+                                        <span>HELP WANTED</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="h-[1px] bg-[#E4E4E7] border-none w-full">
+                    <div class="flex flex-col justify-center items-start p-4 w-full">
+                        <p class="text-[12px] text-[#64748B]">#1by john_doe</p>
+                        <p class="text-[12px] text-[#64748B]">1/15/2024</p>
+                    </div>
+                </div>
+                
+            </section>
+        </section>
+        
+    </main>
+    <script src="./script/main.js">
+    </script>
+</body>
+</html>
