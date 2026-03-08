@@ -151,7 +151,7 @@ function add_cards(card_data,animation=false){
         if(animation) div.classList.add('opacity-0','-translate-x-10','ease-in-out','transition-all', 'duration-500','w-full')
 
         div.innerHTML = `
-            <div id="cards" class="flex flex-col items-start justify-start w-full xl:w-[255px] border-[#c3e2d7] border rounded-md border-t-[3px] bg-white shadow-md h-full hover:-translate-y-0.5 transition-all duration-500">
+            <div id="cards" class="flex flex-col items-start justify-start w-full xl:w-[255px] border rounded-md border-t-[3px] bg-white shadow-md h-full hover:-translate-y-0.5 transition-all duration-500">
                 <div class="p-4 space-y-3 h-full w-full">
                     <div class="flex justify-between items-center w-full">
                         <img id="status_icon" src="./assets/Open-Status.png" alt="">
@@ -174,10 +174,10 @@ function add_cards(card_data,animation=false){
         `
         if(cards.status === 'open') {
             div.querySelector('#status_icon').src = './assets/Open-Status.png'
-            div.querySelector('#cards').classList.add('border-t-[#00a86e]')
+            div.querySelector('#cards').classList.add('border-t-[#00a86e]','border-[#c3e2d7]')
         }else{
             div.querySelector('#status_icon').src = './assets/Closed- Status .png'
-            div.querySelector('#cards').classList.add('border-t-[#a855f7]')
+            div.querySelector('#cards').classList.add('border-t-[#a855f7]','border-[#e8dcf1]')
         }
         badge_element = div.querySelector('#priority_badge')
         if(cards.priority === 'high'){
