@@ -31,6 +31,14 @@ function handleLogin(btn) {
 
     }, 1500);
 }
+function search_issues(){
+    const search_string = document.getElementById('search').value
+    fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${search_string}`)
+    .then(resp => resp.json())
+    .then(data => {
+        add_cards(data.data,true)
+    });
+}
 function tabs_switched(element,type){
     const children = document.getElementById('tab-items').children;
     Array.from(children).forEach(ele => {
@@ -93,7 +101,7 @@ async function load_data() {
         main_container.innerHTML = `<span class="loading loading-infinity loading-xl col-span-4"></span>`
         const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues');
         const data = await res.json();
-        add_cards(data.data)
+        add_cards(data.data,true)
     } catch (err) {
         console.error(err);
         return [];
@@ -110,6 +118,7 @@ function add_cards(card_data,animation=false){
             <h2 class="text-4 text-[#64748B]">Check back soon for new issues</h2>
         </div>
         `
+        document.getElementById('total_issue').innerText =  `0 Issues`;
         return
     }
     let filtered_cards;
@@ -120,15 +129,15 @@ function add_cards(card_data,animation=false){
     }else if(current_tab === 'close'){
         filtered_cards = card_data.filter(job => job.status === 'closed')
     }
-    document.getElementById('total_issue').innerText =  `${filtered_cards.length} Issue`;
+    document.getElementById('total_issue').innerText =  `${filtered_cards.length} Issues`;
     main_container.innerHTML = ''
     for(const cards of filtered_cards){
         const div = document.createElement('div');
         div.setAttribute('id', 'cards');
-        if(animation) div.classList.add('opacity-0','-translate-x-10')
+        if(animation) div.classList.add('opacity-0','-translate-x-10','ease-in-out','transition-all', 'duration-500')
 
         div.innerHTML = `
-            <div id="cards" class="flex flex-col items-start justify-start w-[255px] border-[#c3e2d7] border rounded-md border-t-[3px] bg-white shadow-md h-full">
+            <div id="cards" class="flex flex-col items-start justify-start w-[255px] border-[#c3e2d7] border rounded-md border-t-[3px] bg-white shadow-md h-full hover:-translate-y-0.5 transition-all duration-500">
                 <div class="p-4 space-y-3 h-full w-full">
                     <div class="flex justify-between items-center w-full">
                         <img id="status_icon" src="./assets/Open-Status.png" alt="">
