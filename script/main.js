@@ -61,6 +61,13 @@ function show_card_details(id,labels_div,badge_element){
     fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
     .then(resp => resp.json())
     .then(data => {
+        let date = new Date(data.data.createdAt);
+
+        let day = String(date.getDate()).padStart(2, '0');
+        let month = String(date.getMonth() + 1).padStart(2, '0');
+        let year = date.getFullYear();
+
+        let formatted = `${day}/${month}/${year}`;
         document.getElementById("modal-content").innerHTML = `
             <div class="flex flex-col gap-2">
                 <h1 class="font-bold text-[24px]">${data.data.title}</h1>
@@ -68,8 +75,8 @@ function show_card_details(id,labels_div,badge_element){
                     <div class="w-[60px] h-[24px] rounded-[100px] text-white ${data.data.status === 'open' ? 'bg-[#00A96E]' : 'bg-[#a855f7]'}  items-center flex justify-center text-[12px] p-2">
                         ${data.data.status === 'open' ? 'Opened' : 'Closed'}
                     </div>
-                    <p class="text-[#64748B] text-[12px] flex gap-1"><span>•</span><span>${data.data.author}</span></p>
-                    <p class="text-[#64748B] text-[12px] flex gap-1"><span>•</span><span>${data.data.updatedAt}</span></p>
+                    <p class="text-[#64748B] text-[12px] flex gap-1"><span>•</span><span>Opened by ${data.data.author}</span></p>
+                    <p class="text-[#64748B] text-[12px] flex gap-1"><span>•</span><span>${formatted}</span></p>
                 </div>
             </div>
             <div class="flex justify-start items-center gap-1">
@@ -132,6 +139,13 @@ function add_cards(card_data,animation=false){
     document.getElementById('total_issue').innerText =  `${filtered_cards.length} Issues`;
     main_container.innerHTML = ''
     for(const cards of filtered_cards){
+        let date = new Date(cards.updatedAt);
+
+        let day = String(date.getDate()).padStart(2, '0');
+        let month = String(date.getMonth() + 1).padStart(2, '0');
+        let year = date.getFullYear();
+
+        let formatted = `${day}/${month}/${year}`;
         const div = document.createElement('div');
         div.setAttribute('id', 'cards');
         if(animation) div.classList.add('opacity-0','-translate-x-10','ease-in-out','transition-all', 'duration-500')
@@ -153,8 +167,8 @@ function add_cards(card_data,animation=false){
                 </div>
                 <hr class="h-[1px] bg-[#E4E4E7] border-none w-full">
                 <div class="flex flex-col justify-center items-start p-4 w-full gap-2">
-                    <p class="text-[12px] text-[#64748B]">${cards.author}</p>
-                    <p class="text-[12px] text-[#64748B]">${cards.createdAt}</p>
+                    <p class="text-[12px] text-[#64748B]">#${cards.author}</p>
+                    <p class="text-[12px] text-[#64748B]">${formatted}</p>
                 </div>
             </div>
         `
