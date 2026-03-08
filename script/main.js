@@ -26,7 +26,7 @@ function show_card_details(id,labels_div,badge_element){
             <div class="flex flex-col gap-2">
                 <h1 class="font-bold text-[24px]">${data.data.title}</h1>
                 <div class="flex gap-3 items-center">
-                    <div class="w-[60px] h-[24px] rounded-[100px] text-white ${data.data.status === 'open' ? 'bg-[#00A96E]' : 'bg-[#a855f7]'}  items-center flex justify-center text-[12px]">
+                    <div class="w-[60px] h-[24px] rounded-[100px] text-white ${data.data.status === 'open' ? 'bg-[#00A96E]' : 'bg-[#a855f7]'}  items-center flex justify-center text-[12px] p-2">
                         ${data.data.status === 'open' ? 'Opened' : 'Closed'}
                     </div>
                     <p class="text-[#64748B] text-[12px] flex gap-1"><span>•</span><span>${data.data.author}</span></p>
