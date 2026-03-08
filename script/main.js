@@ -17,6 +17,46 @@ function tabs_switched(element,type){
         load_data()
     }
 }
+
+function show_card_details(id,labels_div,badge_element){
+    fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
+    .then(resp => resp.json())
+    .then(data => {
+        console.log(data)
+        document.getElementById("modal-content").innerHTML = `
+            <div class="flex flex-col gap-2">
+                <h1 class="font-bold text-[24px]">${data.data.title}</h1>
+                <div class="flex gap-3 items-center">
+                    <div class="w-[60px] h-[24px] rounded-[100px] text-white ${data.data.status === 'open' ? 'bg-[#00A96E]' : 'bg-[#a855f7]'}  items-center flex justify-center text-[12px]">
+                        ${data.data.status === 'open' ? 'Opened' : 'Closed'}
+                    </div>
+                    <p class="text-[#64748B] text-[12px]">•${" " + data.data.author}</p>
+                    <p class="text-[#64748B] text-[12px]">•${" " + data.data.updatedAt}</p>
+                </div>
+            </div>
+            <div class="flex justify-start items-center gap-1">
+                ${labels_div.map(label => label.outerHTML).join("")}
+            </div>
+            <p class="text-[16px] text-[#64748B]">${data.data.description}</p>
+            <div class="flex justify-start items-center p-4 bg-[#F8FAFC] rounded-md">
+                <div class="flex flex-col justify-center items-start flex-1">
+                    <p class="text-[16px] text-[#64748B]">Assignee:</p>
+                    <p class="font-bold text-[16px]">${data.data.assignee}</p>
+                </div>
+                <div class="flex flex-col justify-center items-start flex-1">
+                    <p class="text-[16px] text-[#64748B]">Priority:</p>
+                    ${badge_element.outerHTML}
+                </div>
+            </div>
+            <div class="modal-action mt-1">
+                <form method="dialog">
+                    <button class="btn btn-primary">Close</button>
+                </form>
+            </div>
+        `
+        document.getElementById("card_modal").showModal();
+    })
+}
 async function load_data() {
     try {
         const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues');
@@ -40,7 +80,7 @@ function add_cards(card_data,animation=false){
     }
     document.getElementById('total_issue').innerText =  `${filtered_cards.length} Issue`;
     main_container.innerHTML = ''
-    for(cards of filtered_cards){
+    for(const cards of filtered_cards){
         const div = document.createElement('div');
         div.setAttribute('id', 'cards');
         if(animation) div.classList.add('opacity-0','-translate-x-10')
@@ -51,7 +91,6 @@ function add_cards(card_data,animation=false){
                     <div class="flex justify-between items-center w-full">
                         <img id="status_icon" src="./assets/Open-Status.png" alt="">
                         <div id="priority_badge" class="w-[80px] font-semibold h-[24px] rounded-[100px] items-center flex justify-center text-[12px]">
-                            High
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 h-full w-full">
@@ -87,7 +126,8 @@ function add_cards(card_data,animation=false){
             badge_element.classList.add('text-[#b1b6c0]','bg-[#eeeff2]')
         }
         labelsContainer = div.querySelector('#labels')
-        for(labels of cards.labels){
+        let appended_labels = []
+        for(const labels of cards.labels){
             const labels_div = document.createElement('div');
             if(labels === 'bug'){
                 labels_div.setAttribute('class','w-fit px-2 h-[24px] font-medium rounded-[100px] text-[#EF4444] bg-[#FEECEC] items-center flex justify-center text-[12px] border-1 border-[#FECACA]"')
@@ -115,7 +155,11 @@ function add_cards(card_data,animation=false){
                 `
             }
             labelsContainer.appendChild(labels_div)
+            appended_labels.push(labels_div)
         }
+        div.addEventListener('click', (event) => {
+            show_card_details(cards.id,appended_labels,div.querySelector('#priority_badge'))
+        })
         main_container.appendChild(div);
         setTimeout(() => {
             div.classList.remove('opacity-0', '-translate-x-10');
