@@ -22,7 +22,6 @@ function show_card_details(id,labels_div,badge_element){
     fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
         document.getElementById("modal-content").innerHTML = `
             <div class="flex flex-col gap-2">
                 <h1 class="font-bold text-[24px]">${data.data.title}</h1>
@@ -30,8 +29,8 @@ function show_card_details(id,labels_div,badge_element){
                     <div class="w-[60px] h-[24px] rounded-[100px] text-white ${data.data.status === 'open' ? 'bg-[#00A96E]' : 'bg-[#a855f7]'}  items-center flex justify-center text-[12px]">
                         ${data.data.status === 'open' ? 'Opened' : 'Closed'}
                     </div>
-                    <p class="text-[#64748B] text-[12px]">•${" " + data.data.author}</p>
-                    <p class="text-[#64748B] text-[12px]">•${" " + data.data.updatedAt}</p>
+                    <p class="text-[#64748B] text-[12px] flex gap-1"><span>•</span><span>${data.data.author}</span></p>
+                    <p class="text-[#64748B] text-[12px] flex gap-1"><span>•</span><span>${data.data.updatedAt}</span></p>
                 </div>
             </div>
             <div class="flex justify-start items-center gap-1">
@@ -59,6 +58,8 @@ function show_card_details(id,labels_div,badge_element){
 }
 async function load_data() {
     try {
+        const main_container = document.getElementById('card-container');
+        main_container.innerHTML = `<span class="loading loading-infinity loading-xl col-span-4"></span>`
         const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues');
         const data = await res.json();
         add_cards(data.data)
@@ -68,8 +69,18 @@ async function load_data() {
     }
 }
 function add_cards(card_data,animation=false){
-
     const main_container = document.getElementById('card-container');
+
+    if(card_data.length === 0){
+        main_container.innerHTML =  `
+        <div id="no-card" class="bg-[#f8fafc] p-6 rounded-lg border border-base-300 shadow-md w-full h-[300px] sm:h-[400px] flex justify-center items-center flex-col gap-1 text-center col-span-4">
+            <img src="document.png" alt="">
+            <h1 class="text-[24px] font-semibold">No issues available</h1>
+            <h2 class="text-4 text-[#64748B]">Check back soon for new issues</h2>
+        </div>
+        `
+        return
+    }
     let filtered_cards;
     if (current_tab === 'all'){
         filtered_cards = card_data
