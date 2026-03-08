@@ -1,5 +1,36 @@
 
 let current_tab = 'all'
+function handleLogin(btn) {
+    const username = document.getElementById('userInput').value;
+    const password = document.getElementById('pwInput').value;
+    const error = document.getElementById('loginError');
+
+    error.classList.add('hidden');
+
+    btn.innerHTML = '<span class="loading loading-spinner loading-sm" style="margin-right:6px;"></span> Signing in…';
+    btn.disabled = true;
+
+    setTimeout(() => {
+
+        if (username === 'admin' && password === 'admin123') {
+
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;display:inline"><polyline points="20 6 9 17 4 12"/></svg> Signed in!';
+        btn.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
+        btn.style.boxShadow = '0 4px 18px rgba(34,197,94,0.35)';
+
+        console.log('sign');
+
+        } else {
+
+        error.classList.remove('hidden');
+
+        btn.innerHTML = 'Sign In <i class="fa-solid fa-arrow-right-to-bracket"></i>';
+        btn.disabled = false;
+
+        }
+
+    }, 1500);
+}
 function tabs_switched(element,type){
     const children = document.getElementById('tab-items').children;
     Array.from(children).forEach(ele => {

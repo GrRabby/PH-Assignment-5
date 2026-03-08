@@ -142,82 +142,87 @@
   </style>
 </head>
 <body class="min-h-lvh bg-[#F8FAFC] flex items-center justify-center p-4">
-  <div class="main-container mt-12 relative z-10 w-full max-w-[440px] animate-[cardIn] shadow-[0_0_0_1px_rgba(120,80,255,0.07),0_8px_16px_rgba(120,80,255,0.06),0_32px_64px_rgba(100,60,200,0.10)] rounded-[2rem]">
-    <div class="card-header bg-[linear-gradient(135deg,#f5f3ff_0%,#fdf2f8_60%,#eff6ff_100%)] w-full pt-8 rounded-tr-[2rem] rounded-tl-[2rem] border-b border-b-[rgba(91,60,245,0.08)]">
-        <div class="flex flex-col justify-center items-center mb-6">
-            <img src="./assets/github-logo.png" alt="" class="w-fit h-fit mb-3">
-            <h1 class="font-semibold text-[24px]">GitHub Issues Tracker</h1>
-            <p class="text-[16px] text-[#64748B]">Sign in to manage your issues</p>
-        </div>
-    </div>
-
-    <div class="login-card bg-white p-10 rounded-br-[2rem] rounded-bl-[2rem]">
-      <div class="fields-panel-wrap relative mb-4">
-        <div class="fields-panel mb-6 shadow-[0_1px_3px_rgba(124,58,237,0.05),inset_0_1px_0_rgba(255,255,255,0.95)] relative z-1 bg-[linear-gradient(145deg,#fdfcff_0%,#f8fafc_100%)] rounded-[1.25rem] border-[1.5px] overflow-hidden border-[rgba(196,181,253,0.55)] transition-[border-color,box-shadow] duration-200">
-            <div class="field-row relative flex items-center">
-                <p class="field-icon">
-                    <i class="fa-solid fa-user"></i></i>
-                </p>
-                <input type="text" placeholder=" " class="field-input" id="userInput" />
-                <label class="field-label" for="userInput">Username</label>
+    <div class="main-container mt-12 relative z-10 w-full max-w-[440px] animate-[cardIn] shadow-[0_0_0_1px_rgba(120,80,255,0.07),0_8px_16px_rgba(120,80,255,0.06),0_32px_64px_rgba(100,60,200,0.10)] rounded-[2rem]">
+        <div class="card-header bg-[linear-gradient(135deg,#f5f3ff_0%,#fdf2f8_60%,#eff6ff_100%)] w-full pt-8 rounded-tr-[2rem] rounded-tl-[2rem] border-b border-b-[rgba(91,60,245,0.08)]">
+            <div class="flex flex-col justify-center items-center mb-6">
+                <img src="./assets/github-logo.png" alt="" class="w-fit h-fit mb-3">
+                <h1 class="font-semibold text-[24px]">GitHub Issues Tracker</h1>
+                <p class="text-[16px] text-[#64748B]">Sign in to manage your issues</p>
             </div>
-            <div class="field-row relative flex items-center border-t-[1.5px] border-t-[#ede9fe]">
-                <p class="field-icon">
-                    <i class="fa-solid fa-lock"></i>
-                </p>
-                <div class="relative flex items-center w-full">
-                    <input type="password" placeholder=" " class="field-input" id="pwInput" />
-                    <label class="field-label" for="pwInput">Password</label>
-                    <button class="absolute right-[14px] top-[50%] translate-y-[-50%] z-1" onclick="togglePw()" id="eyeBtn" type="button">
-                        <i class="fa-solid fa-eye" id="eyeIcon" style="color: rgb(215, 205, 254);"></i>
-                    </button>
+        </div>
+
+        <div class="login-card bg-white p-10 rounded-br-[2rem] rounded-bl-[2rem]">
+            <div class="fields-panel-wrap relative mb-4">
+                <div class="fields-panel mb-6 shadow-[0_1px_3px_rgba(124,58,237,0.05),inset_0_1px_0_rgba(255,255,255,0.95)] relative z-1 bg-[linear-gradient(145deg,#fdfcff_0%,#f8fafc_100%)] rounded-[1.25rem] border-[1.5px] overflow-hidden border-[rgba(196,181,253,0.55)] transition-[border-color,box-shadow] duration-200">
+                    <div class="field-row relative flex items-center">
+                        <p class="field-icon">
+                            <i class="fa-solid fa-user"></i></i>
+                        </p>
+                        <input type="text" placeholder=" " class="field-input" id="userInput" />
+                        <label class="field-label" for="userInput">Username</label>
+                    </div>
+                    <div class="field-row relative flex items-center border-t-[1.5px] border-t-[#ede9fe]">
+                        <p class="field-icon">
+                            <i class="fa-solid fa-lock"></i>
+                        </p>
+                        <div class="relative flex items-center w-full">
+                            <input type="password" placeholder=" " class="field-input" id="pwInput" />
+                            <label class="field-label" for="pwInput">Password</label>
+                            <button class="absolute right-[14px] top-[50%] translate-y-[-50%] z-1" onclick="togglePw()" id="eyeBtn" type="button">
+                                <i class="fa-solid fa-eye" id="eyeIcon" style="color: rgb(215, 205, 254);"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p id="loginError" class="text-red-500 text-[14px] mb-4 text-center hidden">
+                Incorrect username or password
+            </p>
+            <button class="btn-submit mb-6 shadow-[0_4px_18px_rgba(124,58,237,0.3)] transition-all duration-[0.15s] overflow-hidden text-white w-full h-[50px] rounded-[15px] border-none cursor-pointer bg-[linear-gradient(135deg,#7c3aed_0%,#a855f7_50%,#ec4899_100%)]" onclick="handleLogin(this)" type="button">Sign In <i class="fa-solid fa-arrow-right-to-bracket"></i></button>
+            <div class="or-divider mb-6 uppercase flex items-center gap-3 text-[#cbd5e1] text-[12px] font-semibold">or</div>
+            <div class="text-center w-full flex flex-col items-center justify-center gap-2">
+                <p class="text-[14px] text-[#64748B]">Demo Credentials</p>
+                <div class="w-full bg-[linear-gradient(135deg,#f5f3ff_0%,#fdf2f8_60%,#eff6ff_100%)] p-6 rounded-[2rem]">
+                    <p><span class="font-bold">Username:</span> admin</p>
+                    <p><span class="font-bold">Password:</span> admin123</p>
                 </div>
             </div>
         </div>
-      </div>
-
-      <button class="btn-submit mb-6 shadow-[0_4px_18px_rgba(124,58,237,0.3)] transition-all duration-[0.15s] overflow-hidden text-white w-full h-[50px] rounded-[15px] border-none cursor-pointer bg-[linear-gradient(135deg,#7c3aed_0%,#a855f7_50%,#ec4899_100%)]" onclick="handleLogin(this)" type="button">Sign In <i class="fa-solid fa-arrow-right-to-bracket"></i></button>
-      <div class="or-divider mb-6 uppercase flex items-center gap-3 text-[#cbd5e1] text-[12px] font-semibold">or</div>
-      <div class="text-center w-full flex flex-col items-center justify-center gap-2">
-        <p class="text-[14px] text-[#64748B]">Demo Credentials</p>
-        <div class="w-full bg-[linear-gradient(135deg,#f5f3ff_0%,#fdf2f8_60%,#eff6ff_100%)] p-6 rounded-[2rem]">
-            <p><span class="font-bold">Username:</span> admin</p>
-            <p><span class="font-bold">Password:</span> admin123</p>
-        </div>
-      </div>
-
     </div>
-  </div>
-
-  <script>
-    function togglePw() {
-      const inp = document.getElementById('pwInput');
-      const icon = document.getElementById('eyeIcon');
-      if (inp.type === 'password') {
-        inp.type = 'text'; 
-        icon.classList = ''
-        icon.classList = "fa-solid fa-eye-slash"
-      } else {
-        inp.type = 'password'; 
-        icon.classList = ''
-        icon.classList = "fa-solid fa-eye"
-      }
-    }
-
-    function handleLogin(btn) {
-      btn.innerHTML = '<span class="loading loading-spinner loading-sm" style="margin-right:6px;"></span> Signing in…';
-      btn.disabled = true;
-      setTimeout(() => {
-        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;display:inline"><polyline points="20 6 9 17 4 12"/></svg> Signed in!';
-        btn.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
-        btn.style.boxShadow = '0 4px 18px rgba(34,197,94,0.35)';
+    <script src="./script/main.js"></script>
+    <script>
+        function togglePw() {
+            const inp = document.getElementById('pwInput');
+            const icon = document.getElementById('eyeIcon');
+            if (inp.type === 'password') {
+                inp.type = 'text'; 
+                icon.classList = ''
+                icon.classList = "fa-solid fa-eye-slash"
+            } else {
+                inp.type = 'password'; 
+                icon.classList = ''
+                icon.classList = "fa-solid fa-eye"
+            }
+        }
+        
+        function handleLogin(btn) {
+        btn.innerHTML = '<span class="loading loading-spinner loading-sm" style="margin-right:6px;"></span> Signing in…';
+        btn.disabled = true;
         setTimeout(() => {
-          btn.innerHTML = 'Sign In <i class="fa-solid fa-arrow-right-to-bracket"></i>';
-          btn.style.background = ''; btn.style.boxShadow = '';
-          btn.disabled = false;
-        }, 2500);
-      }, 1500);
-    }
-  </script>
+            const username = document.getElementById('userInput').value;
+            const password = document.getElementById('pwInput').value;
+            const error = document.getElementById('loginError');
+
+            error.classList.add('hidden');
+            if (username === 'admin' && password === 'admin123') {
+                window.location.href = "home.html";
+            }else{
+                error.classList.remove('hidden');
+                btn.innerHTML = 'Sign In <i class="fa-solid fa-arrow-right-to-bracket"></i>';
+                btn.disabled = false;
+            }
+        }, 1500);
+        }
+    </script>
 </body>
 </html>
